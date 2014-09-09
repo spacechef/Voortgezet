@@ -1,7 +1,7 @@
 package main;
 
 public class Collection implements CollectionInterface {
-
+/*
 	@Override
 	public void copy() {
 		// TODO Auto-generated method stub
