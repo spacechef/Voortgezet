@@ -41,7 +41,7 @@ public interface IdentifierInterface {
 	/** PRE: -
 	 * POST: Geeft aan of de meegegeven identfier gelijk is aan deze identifier
 	 **/	
-	boolean isGelijk(Object Identifier);
+	boolean equals(Object Identifier);
 
 	/** PRE: -
 	 * POST: Retourneert char die op de meegegeven index positie staat.
