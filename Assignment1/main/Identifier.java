@@ -3,32 +3,44 @@ public class Identifier implements IdentifierInterface {
 	
 	char[] karakterArray;
 	int aantalKarakters;
+	int aantalKaraktersToegevoegd;
 	
-	public Identifier(int aantalKarakters) {
-		this.aantalKarakters = aantalKarakters;
-		this.karakterArray = new char[aantalKarakters]; 
-		// TODO Auto-generated method stub
+	public Identifier() {
+		this.aantalKaraktersToegevoegd = 0;
+		this.aantalKarakters = 1;
+		this.karakterArray = new char[aantalKarakters];
 	}
 
-	public Identifier(Identifier teKopieerenIdentifier) {
-		int aantalKarakters = this.lengte();
-		Identifier kopieKarakters = new Identifier(aantalKarakters);
-		char[] array = new char[aantalKarakters];
+	public Identifier Identifier(Identifier teKopieerenIdentifier) {
+		Identifier kopieIdentifier = new Identifier();
+		kopieIdentifier.karakterArray = new char[this.lengte()];
 		for (int i=0; i <= this.lengte(); i++){
-			array[i] = this.karakterArray[i]; 
+			kopieIdentifier.karakterArray[i] = this.karakterArray[i]; 
 		} 
 		
-		return teKopieerenIdentifier;
+		return kopieIdentifier;
 	}
 
 	@Override
 	public void init(char c) {
-		this.karakterArray = new char[this.aantalKarakters];
+		this.karakterArray = new char[1];
+		this.voegToe(c);
 	}
 
 	@Override
 	public void voegToe(char c) {
-		// this.karakterArray = woord.toCharArray();
+		this.aantalKaraktersToegevoegd += 1;
+		if (this.aantalKaraktersToegevoegd >= this.aantalKarakters){
+			char[] nieuweKarakterArray = new char[aantalKarakters + 1];
+			for (int i = 0; i <= this.aantalKarakters; i++){
+				nieuweKarakterArray[i] = this.karakterArray[i];
+		 	}
+			this.karakterArray = nieuweKarakterArray;
+		}
+		else {
+			this.karakterArray[aantalKarakters - 1] = c;
+		}
+		
 	}
 
 	@Override
@@ -45,8 +57,7 @@ public class Identifier implements IdentifierInterface {
 
 	@Override
 	public char get(int i) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.karakterArray[i];
 	}
 
 }
