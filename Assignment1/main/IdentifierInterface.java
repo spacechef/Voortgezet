@@ -7,24 +7,25 @@ package main;
 
 public interface IdentifierInterface {
 
-	/** constructor
+	/** @constructor
 	 * PRE: -
-	 * POST: Heeft een nieuw object van het type Identifier aangemaakt.
+	 * POST: Heeft een nieuw object van het type Identifier aangemaakt met de waarde 'L''E''E''G'.
+	 * Identifier(); 
 	 **/
-	void Identifier();
+	
 	
 	/** PRE: -
-	 * POST: Maakt een nieuw object van het type identifier aan met dezelfde waarde als deze identifier
+	 * POST: Maakt een nieuw object van het type identifier aan met een kopie van dezelfde waarde als de meegegeven identifier
+	 * Identifier(Identifier identifier);
+	**/
+	
+	/** PRE: - De meegegeven karakter is een letter.
+	 * POST: Herstelt deze identifier naar de oorspronkelijke c waarden.
 	 **/	
-	void copy();
+	void init(char c);
 
-	/** PRE: -
-	 * POST: Herstelt deze identifier naar de oorspronkelijke (lege) waarden.
-	 **/	
-	void init();
-
-	/** PRE:-
-	 * POST: Heeft aan het einde van deze identifier een char c toegevoegd
+	/** PRE: Alle alfanumerieke karakters.
+	 * POST: Heeft aan het einde van deze identifier een char c toegevoegd 
 	 **/	
 	void voegToe(char c);
 
@@ -33,17 +34,14 @@ public interface IdentifierInterface {
 	 **/	
 	int lengte();
 
-	/** PRE: - 
-	 * POST: Drukt de identifier af.
-	 **/	
-	void drukAf();
 
 	/** PRE: -
-	 * POST: Geeft aan of de meegegeven identfier gelijk is aan deze identifier
+	 * POST: TRUE: Waarden van de identifiers zijn gelijk
+	 * `	 FALSE: De meegegeven identfier is niet gelijk is aan deze identifier
 	 **/	
-	boolean equals(Object Identifier);
+	boolean equals(Identifier ingevoerdeIdentifier);
 
-	/** PRE: -
+	/** PRE: min 0 max lengte van Identifier
 	 * POST: Retourneert char die op de meegegeven index positie staat.
 	 **/	
 	char get(int i);
