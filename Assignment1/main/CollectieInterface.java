@@ -50,6 +50,20 @@ public interface CollectieInterface {
 	 * POST: Er is een identifier teruggegeven. 
 	 */
 	Identifier pak();
+	
+	/**
+	 * PRE: -
+	 * POST: TRUE: De collectie bevat de meegegeven identifier.
+	 * 		FALSE: De collectie bevat de meegegeven identifier niet.
+	 */
+	boolean bevat(Identifier i);
+	
+	/**
+	 * PRE-
+	 * POST: SUCCESS: de indexpositie van de meegegeven identifier is geretourneerd.
+	 * 			FAIL: Exception gegooid als de meegegeven identifier niet in de collectie voorkomt.
+	 */
+	int index(Identifier i) throws Exception;
 
 	/** PRE: -
 	 * POST: SUCCESS: Geeft een nieuw object terug met daarin de vereniging van deze en de meegegeven collectie
@@ -66,7 +80,7 @@ public interface CollectieInterface {
 	 * POST: SUCCESS: Er is een nieuw collectie object teruggegeven met daarin de elementen die niet in de vereniging van beide collecties zitten.
 	 * 			FAIL: er
 	 **/	
-	Collectie symmetrisch_verschil(Collectie ander) throws Exception;
+	Collectie symmetrischVerschil(Collectie ander) throws Exception;
 
 	/** PRE: -
 	 * POST: Geeft een nieuw collectie object terug met daarin alle elementen die in beide collecties zitten.
