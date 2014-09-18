@@ -108,7 +108,7 @@ public class Collectie implements CollectieInterface {
 		Collectie vereniging = new Collectie();
 		Collectie ander = new Collectie(collectie2); 
 		for(int i = 0; i < ander.lengte(); i++){
-			if(ander.bevat(this.identifierArray[i])){  //evt veranderen in while?
+			if(ander.bevat(this.identifierArray[i])){
 					ander.verwijder(ander.identifierArray[i]);
 			}
 		}
@@ -133,7 +133,7 @@ public class Collectie implements CollectieInterface {
 		Collectie verschil = new Collectie(this);
 		final int startIndex = verschil.lengte()-1;
 		for(int i = startIndex; i == 0; i--){
-			if(ander.bevat(verschil.identifierArray[i])){ //evt while?
+			if(ander.bevat(verschil.identifierArray[i])){
 				verschil.verwijder(verschil.identifierArray[i]);
 			}
 		}
