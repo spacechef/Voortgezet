@@ -34,14 +34,9 @@ public class Collectie implements CollectieInterface {
 			if(this.lengte() < MAXIMALE_AANTAL_IDENTIFIERS){
 				Collectie buffer = new Collectie(this);
 				this.identifierArray = new Identifier[this.lengte()+1];
-				for(int i =0; i<this.lengte(); i++){
-					if(this.identifierArray[i].equals(invoerIdentifier)){
-						break;
-					}
-					else {
+				for(int i = 0; i < buffer.lengte(); i++){
 					this.identifierArray[i] = new Identifier(buffer.identifierArray[i]);
 					}
-				}
 				this.identifierArray[this.lengte()] = new Identifier(invoerIdentifier);
 			}
 			else{
@@ -87,15 +82,14 @@ public class Collectie implements CollectieInterface {
 	@Override//Let op: Programma moet voorkomen dat er dubbele identifiers in een collectie komen
 	//edit: wordt misschien opgelost door gebruik van while in verschil en symm verschil.
 	public void verwijder(Identifier teVerwijderenIdentifier) {
-		if(this.bevat(teVerwijderenIdentifier)){
+		while(this.bevat(teVerwijderenIdentifier)){
 			Collectie buffer = new Collectie(this);
 			this.identifierArray = new Identifier[this.lengte()-1];
-			int invoegIndex = 0 ;
-			for(int i = 0; i < this.lengte(); i++){
+			for(int i = 0; i < buffer.lengte(); i++){
 				if(buffer.identifierArray[i] != teVerwijderenIdentifier){
-					this.identifierArray[invoegIndex] = new Identifier(buffer.identifierArray[i]);
-					invoegIndex++;
+					this.voegToe(buffer.identifierArray[i]);
 				}
+				break;
 			}	
 		}			
 	}
