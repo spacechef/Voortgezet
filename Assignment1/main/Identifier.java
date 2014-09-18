@@ -11,14 +11,12 @@ public class Identifier implements IdentifierInterface {
 		this.karakterArray = new char[aantalKarakters];
 	}
 
-	public Identifier Identifier(Identifier teKopieerenIdentifier) {
+	public Identifier(Identifier teKopieerenIdentifier) {
 		Identifier kopieIdentifier = new Identifier();
 		kopieIdentifier.karakterArray = new char[this.lengte()];
 		for (int i=0; i <= this.lengte(); i++){
 			kopieIdentifier.karakterArray[i] = this.karakterArray[i]; 
 		} 
-		
-		return kopieIdentifier;
 	}
 
 	@Override
