@@ -9,13 +9,13 @@ public class Collectie implements CollectieInterface {
 	private Collectie kopie;
 			
 	public Collectie() {
-		Identifier[] identifierArray = new Identifier[0];
+		this.identifierArray = new Identifier[0];
 	}
 
 	public Collectie(Collectie teKopierenCollectie) {
-		Collectie kopie = new Collectie();
-		for(int i = 0; i<teKopierenCollectie.lengte(); i++){
-			kopie.identifierArray[i] = teKopierenCollectie.identifierArray[i];
+		this.identifierArray = new Identifier[teKopierenCollectie.lengte()];
+		for(int i=0; i<this.lengte(); i++){
+			this.identifierArray[i] = new Identifier(teKopierenCollectie.identifierArray[i]);
 		}
 	}
 
@@ -28,7 +28,6 @@ public class Collectie implements CollectieInterface {
 	@Override
 	public void voegToe(Identifier invoerIdentifier) throws IndexOutOfBoundsException {	
 		if(this.bevat(invoerIdentifier)){
-			break;
 		}
 		else{
 			if(this.lengte() < MAXIMALE_AANTAL_IDENTIFIERS){
@@ -37,7 +36,7 @@ public class Collectie implements CollectieInterface {
 				for(int i = 0; i < buffer.lengte(); i++){
 					this.identifierArray[i] = new Identifier(buffer.identifierArray[i]);
 					}
-				this.identifierArray[this.lengte()] = new Identifier(invoerIdentifier);
+				this.identifierArray[buffer.lengte()] = new Identifier(invoerIdentifier);
 			}
 			else{
 				throw new IndexOutOfBoundsException();	
