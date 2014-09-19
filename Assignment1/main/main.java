@@ -1,11 +1,10 @@
 package main;
 
 import java.io.*;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class main {
-	
-//	static final Collectie eersteCollectie;
-//	static final Collectie tweedeCollectie;
 	
 	static boolean checkAlfanumeriek(String stringVanCollectie) throws Exception {
 		String collectieZonderBrackets = verwijderBrackets(stringVanCollectie);
@@ -68,130 +67,68 @@ public class main {
 		return collectieZonderBrackets;
 	}
 
-
-	
-//	static boolean checkCTRLz(Scanner in){
-//		if (nextCharIs(in, '{')){
-//			return true;
-//		}
-//		else {
-//			return false;
-//		}
-//	}
-	
-	
-	static Collectie controleerEnMaakCollectie(String stringVanCollectie){
-		Collectie eersteCollectie;
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			boolean dataIsOngeldig = true;
-			while (dataIsOngeldig){
+	static String vraagInput(BufferedReader in)throws Exception{
+		String stringVanEersteCollectie = null;
+		boolean dataIsOngeldig = true;
+		while (dataIsOngeldig){
 			System.out.print("\nVoer eerste collectie in:");
-			String stringVanEersteCollectie = in.readLine();
-			if (checkInvoer(stringVanCollectie)){ 
-				dataIsOngeldig = false;
-				String collectieZonderBrackets = verwijderBrackets(stringVanCollectie);
-				String [] stringArrayCollectie = collectieZonderBrackets.split("\\s+");
-				eersteCollectie = new Collectie();
-				for (String s : stringArrayCollectie) {
-					Identifier identifier = new Identifier();
-//					System.out.print(s);
-					char [] woordInChar = s.toCharArray();
-//					System.out.print(woordInChar);
-						for (char c : woordInChar){
-//							System.out.println(c);
-							identifier.voegToe(c);
-						}
-					eersteCollectie.voegToe(identifier);
-					}
-				return eersteCollectie;
+			stringVanEersteCollectie = in.readLine();
+				if (checkInvoer(stringVanEersteCollectie)){ //er gaat wat mis in het tellen van de woorden/ er komt een exception op de -1ste plek van de array te staan
+					dataIsOngeldig = false;
 			}
 		}
-		
-		} 	catch (Exception e){
-			System.out.print(e);
-		}
+		return stringVanEersteCollectie;
 	}
 	
+	static Collectie maakCollectie(String input){
+		String collectieZonderBrackets = verwijderBrackets(input);
+		String [] stringArrayEersteCollectie = collectieZonderBrackets.split("\\s+");
+		Collectie huidigeCollectie = new Collectie();
+		for (String s : stringArrayEersteCollectie) {
+			Identifier identifier = new Identifier();
+			char [] woordInChar = s.toCharArray();
+				for (char c : woordInChar){
+					identifier.voegToe(c);
+				}
+			huidigeCollectie.voegToe(identifier);	
+		}
+		return huidigeCollectie;
+	}
 	
 	public static void main(String[] args) {
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			Collectie collectie1 = null;
+			Collectie collectie2 = null;
 			
 			try {
+				String input = vraagInput(in);
+				collectie1 = maakCollectie(input);
+			}
+			catch (Exception e){
+				System.out.print(e);
+			}
 				
-				boolean dataIsOngeldig = true;
-				while (dataIsOngeldig){
-				System.out.print("\nVoer eerste collectie in:");
-				String stringVanEersteCollectie = in.readLine();
-				if (checkInvoer(stringVanEersteCollectie)){ 
-					dataIsOngeldig = false;
-					String collectieZonderBrackets = verwijderBrackets(stringVanEersteCollectie);
-//					System.out.println(collectieZonderBrackets);
-					String [] stringArrayEersteCollectie = collectieZonderBrackets.split("\\s+");
-					final Collectie eersteCollectie = new Collectie();
-					for (String s : stringArrayEersteCollectie) {
-						Identifier identifier = new Identifier();
-//						System.out.print(s);
-						char [] woordInChar = s.toCharArray();
-//						System.out.print(woordInChar);
-							for (char c : woordInChar){
-//								System.out.println(c);
-								identifier.voegToe(c);
-							}
-						eersteCollectie.voegToe(identifier);
-						
-					}
-					
-				}
-				}
-			}
-			catch (Exception e){
-				System.out.print(e);
-			}
-			
 			try {
-				boolean dataIsOngeldig = true;
-				while (dataIsOngeldig){
-				System.out.print("\nVoer tweede collectie in:");
-				String stringVanTweedeCollectie = in.readLine();
-				if (checkInvoer(stringVanTweedeCollectie)){
-					dataIsOngeldig = false;
-					String collectieZonderBrackets = verwijderBrackets(stringVanTweedeCollectie);
-					String [] stringArrayTweedeCollectie = collectieZonderBrackets.split("\\s+");
-					final Collectie tweedeCollectie = new Collectie();
-					for (String s : stringArrayTweedeCollectie) {
-						Identifier identifier = new Identifier();
-						char [] woordInChar = s.toCharArray();
-							for (char c : woordInChar){
-								identifier.voegToe(c);
-							}
-						tweedeCollectie.voegToe(identifier);
-						
-					}
-					
-				}
-				}
+				String input = vraagInput(in);
+				collectie2 = maakCollectie(input);
 			}
 			catch (Exception e){
 				System.out.print(e);
 			}
 			
-			try {
-				Collectie vereniging = eersteCollectie.vereniging(tweedeCollectie);
-			}
-			catch (Exception e){
-				System.out.print(e);
-			}
-			
-			
+			System.out.println(collectie1.lengte());
+			Collectie vereniging = collectie1.vereniging(collectie2);
+			System.out.println(vereniging);
+			Collectie verschil = collectie1.verschil(collectie2);
+			System.out.println(verschil);
+			Collectie intersectie = collectie1.intersectie(collectie2);
+			System.out.println(intersectie);
+			Collectie symmetrischVerschil = collectie1.symmetrischVerschil(collectie2);
+			System.out.println(symmetrischVerschil);
 
-			}
-
-
-
-			
 		
 		// TODO Auto-generated method stub
 
 	}
+}
