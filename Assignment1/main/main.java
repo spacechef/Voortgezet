@@ -95,7 +95,7 @@ public class main {
 		return huidigeCollectie;
 	}
 	
-	public static void main(String[] args) {
+	//public static void main(String[] args) {
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			Collectie collectie1 = null;
