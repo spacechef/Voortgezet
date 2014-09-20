@@ -1,180 +1,147 @@
 package main;
 
-public class Collectie implements CollectieInterface {
-	
+public class Collectie
+
+    implements CollectieInterface
+{
+
+
 	static final int MAXIMALE_AANTAL_IDENTIFIERS = 20;
 	static final int MINIMALE_AANTAL_IDENTIFIERS = 0;
+	Identifier identifierArray[];
 	
-	private Identifier[] identifierArray;
-	private Collectie kopie;
-			
-	public Collectie() {
-		this.identifierArray = new Identifier[0];
-	}
+    public Collectie()
+    {
+        identifierArray = new Identifier[0];
+    }
 
-	public Collectie(Collectie teKopierenCollectie) {
-		this.identifierArray = new Identifier[teKopierenCollectie.lengte()];
-		for(int i=0; i<this.lengte(); i++){
-			this.identifierArray[i] = new Identifier(teKopierenCollectie.identifierArray[i]);
-		}
-	}
+    public Collectie(Collectie teKopierenCollectie)
+    {
+        identifierArray = new Identifier[teKopierenCollectie.lengte()];
+        for(int i = 0; i < lengte(); i++)
+            identifierArray[i] = new Identifier(teKopierenCollectie.identifierArray[i]);
 
-	@Override
-	public void init() {
-		this.identifierArray = new Identifier[0];
-	}
+    }
 
-	
-	@Override
-	public void voegToe(Identifier invoerIdentifier) throws IndexOutOfBoundsException {	
-		if(this.bevat(invoerIdentifier)){
-		}
-		else{
-			if(this.lengte() < MAXIMALE_AANTAL_IDENTIFIERS){
-				Collectie buffer = new Collectie(this);
-				this.identifierArray = new Identifier[this.lengte()+1];
-				for(int i = 0; i < buffer.lengte(); i++){
-					this.identifierArray[i] = new Identifier(buffer.identifierArray[i]);
-					}
-				this.identifierArray[buffer.lengte()] = new Identifier(invoerIdentifier);
-			}
-			else{
-				throw new IndexOutOfBoundsException();	
-			}
-		}
-	}
+    public void init()
+    {
+        identifierArray = new Identifier[0];
+    }
 
-	
-	@Override
-	public int lengte() {
-		return this.identifierArray.length;
-	}
-	
-	
-	public boolean bevat(Identifier meegegevenIdentifier){
-		for(int i = 0; i < this.lengte(); i++){
-			if(this.identifierArray[i].equals(meegegevenIdentifier)){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	
-	//deze is misschien toch niet nuttig
-	public int index(Identifier meegegevenIdentifier) throws IllegalArgumentException{
-		int index = -1;
-		for(int i = 0; i < this.lengte(); i++){
-			if(this.identifierArray[i].equals(meegegevenIdentifier)){
-				index = i;
-			}
-		}
-		if(index == -1){
-			throw new IllegalArgumentException();
-		}
-		else{
-		return index;
-		}
-	}
-	
-	
-	@Override//Let op: Programma moet voorkomen dat er dubbele identifiers in een collectie komen
-	//edit: wordt misschien opgelost door gebruik van while in verschil en symm verschil.
-	public void verwijder(Identifier teVerwijderenIdentifier) {
-		while(this.bevat(teVerwijderenIdentifier)){
-			Collectie buffer = new Collectie(this);
-			this.identifierArray = new Identifier[this.lengte()-1];
-			for(int i = 0; i < buffer.lengte(); i++){
-				if(buffer.identifierArray[i] != teVerwijderenIdentifier){
-					this.voegToe(buffer.identifierArray[i]);
-				}
-				break;
-			}	
-		}			
-	}
+    public void voegToe(Identifier invoerIdentifier)
+        throws Exception
+    {
+        if(!bevat(invoerIdentifier))
+            if(lengte() < 20)
+            {
+                Collectie buffer = new Collectie(this);
+                identifierArray = new Identifier[lengte() + 1];
+                for(int i = 0; i < buffer.lengte(); i++)
+                    identifierArray[i] = new Identifier(buffer.identifierArray[i]);
 
-	
-	@Override
-	public Identifier pak() {
-		return this.identifierArray[this.lengte()-1];
-	}
+                identifierArray[buffer.lengte()] = new Identifier(invoerIdentifier);
+            } else
+            {
+                throw new Exception("Geef maximaal 20 unieke identifiers als input.");
+            }
+    }
 
-	
-	@Override//Eerdere implementatie maakte ipv voegToe() direct een nieuwe identifier 
-	//met meegegeven waarden op de aangegeven indexpositie. Dit vermeed het herhaaldelijke 
-	//kopieren dat voegToe() doet. (omdat van de al lopende loop gebruikt werd gemaakt)
-	public Collectie vereniging(Collectie collectie2) throws IndexOutOfBoundsException {
-		Collectie vereniging = new Collectie();
-		Collectie ander = new Collectie(collectie2); 
-		for(int i = 0; i < ander.lengte(); i++){
-			if(ander.bevat(this.identifierArray[i])){
-					ander.verwijder(ander.identifierArray[i]);
-			}
-		}
-		vereniging.identifierArray = new Identifier[this.lengte() + ander.lengte()];
-		if(vereniging.lengte() <= MAXIMALE_AANTAL_IDENTIFIERS){
-			for(int i = 0; i < this.lengte(); i++){
-				vereniging.voegToe(this.identifierArray[i]);
-			}
-			for(int i = 0; i<ander.lengte(); i++){
-				vereniging.voegToe(ander.identifierArray[i]);
-			}
-			return vereniging;
-		}
-		else{
-			throw new IndexOutOfBoundsException();
-		}
-	}
+    public int lengte()
+    {
+        return identifierArray.length;
+    }
 
-	
-	@Override
-	public Collectie verschil(Collectie ander) {
-		Collectie verschil = new Collectie(this);
-		final int startIndex = verschil.lengte()-1;
-		for(int i = startIndex; i == 0; i--){
-			if(ander.bevat(verschil.identifierArray[i])){
-				verschil.verwijder(verschil.identifierArray[i]);
-			}
-		}
-		return verschil;
-	}
+    public boolean bevat(Identifier meegegevenIdentifier)
+    {
+        for(int i = 0; i < lengte(); i++)
+            if(identifierArray[i].equals(meegegevenIdentifier))
+                return true;
 
-	
-	@Override
-	public Collectie symmetrischVerschil(Collectie ander) throws IndexOutOfBoundsException {
-		Collectie symmetrischVerschil;
-		Collectie verschil1 = this.verschil(ander);
-		Collectie verschil2 = ander.verschil(this);
-		try{
-			symmetrischVerschil = verschil1.vereniging(verschil2);
-		}
-		catch(IndexOutOfBoundsException e){	//vangen en opnieuw gooien niet nodig?
-			throw new IndexOutOfBoundsException();
-		}
-		return symmetrischVerschil;
-	}
+        return false;
+    }
 
-	
-	@Override
-	public Collectie intersectie(Collectie ander) {
-		Collectie intersectie = new Collectie();
-		Collectie kleinsteCollectie;
-		Collectie grootsteCollectie;
-		
-		if(this.lengte() > ander.lengte()){
-			kleinsteCollectie = ander;
-			grootsteCollectie = this;
-		}
-		else{
-			kleinsteCollectie = this;
-			grootsteCollectie = ander;
-		}
-		for(int i = 0; i < kleinsteCollectie.lengte(); i++){
-			if(grootsteCollectie.bevat(kleinsteCollectie.identifierArray[i])){
-				intersectie.voegToe(kleinsteCollectie.identifierArray[i]);
-			}
-		}
-		return intersectie;
-	}
+    public void verwijder(Identifier teVerwijderenIdentifier)
+    {
+        Collectie buffer = new Collectie(this);
+        identifierArray = new Identifier[lengte() - 1];
+        int invoerIndex = 0;
+        for(int i = 0; i < buffer.lengte(); i++)
+            if(!buffer.identifierArray[i].equals(teVerwijderenIdentifier))
+            {
+                identifierArray[invoerIndex] = new Identifier(buffer.identifierArray[i]);
+                invoerIndex++;
+            }
 
+    }
+
+    public Identifier pak()
+    {
+        return identifierArray[lengte() - 1];
+    }
+
+    public Collectie vereniging(Collectie collectie2)
+        throws Exception
+    {
+        Collectie vereniging = new Collectie();
+        for(int i = 0; i < lengte(); i++)
+            vereniging.voegToe(identifierArray[i]);
+
+        for(int i = 0; i < collectie2.lengte(); i++)
+            vereniging.voegToe(collectie2.identifierArray[i]);
+
+        if(vereniging.lengte() > 20)
+            throw new Exception("Geef maximaal 20 unieke identifiers als input.");
+        else
+            return vereniging;
+    }
+
+    public Collectie verschil(Collectie ander)
+    {
+        Collectie verschil = new Collectie(this);
+        for(int i = 0; i < ander.lengte(); i++)
+            if(verschil.bevat(ander.identifierArray[i]))
+                verschil.verwijder(ander.identifierArray[i]);
+
+        return verschil;
+    }
+
+    public Collectie symmetrischVerschil(Collectie ander)
+        throws Exception
+    {
+        Collectie verschil1 = verschil(ander);
+        Collectie verschil2 = ander.verschil(this);
+        Collectie symmetrischVerschil = verschil1.vereniging(verschil2);
+        if(symmetrischVerschil.lengte() > 20)
+            throw new Exception("Geef maximaal 20 unieke identifiers als input.");
+        else
+            return symmetrischVerschil;
+    }
+
+    public Collectie intersectie(Collectie ander)
+    {
+        Collectie intersectie = new Collectie();
+        Collectie kleinsteCollectie;
+        Collectie grootsteCollectie;
+        if(lengte() > ander.lengte())
+        {
+            kleinsteCollectie = ander;
+            grootsteCollectie = this;
+        } else
+        {
+            kleinsteCollectie = this;
+            grootsteCollectie = ander;
+        }
+        for(int i = 0; i < kleinsteCollectie.lengte(); i++)
+            if(grootsteCollectie.bevat(kleinsteCollectie.identifierArray[i]))
+                try
+                {
+                    intersectie.voegToe(kleinsteCollectie.identifierArray[i]);
+                }
+                catch(Exception e)
+                {
+                    System.out.println(e);
+                }
+
+        return intersectie;
+    }
 }

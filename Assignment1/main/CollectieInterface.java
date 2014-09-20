@@ -58,13 +58,6 @@ public interface CollectieInterface {
 	 */
 	boolean bevat(Identifier i);
 	
-	/**
-	 * PRE-
-	 * POST: SUCCESS: de indexpositie van de meegegeven identifier is geretourneerd.
-	 * 			FAIL: Exception gegooid als de meegegeven identifier niet in de collectie voorkomt.
-	 */
-	int index(Identifier i) throws Exception;
-
 	/** PRE: -
 	 * POST: SUCCESS: Geeft een nieuw object terug met daarin de vereniging van deze en de meegegeven collectie
 	 * 			FAIL:
