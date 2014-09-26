@@ -11,7 +11,7 @@ public interface IdentifierInterface {
 
 	/** @constructor
 	 * PRE: -
-	 * POST: Heeft een nieuw object aangemaakt van het type NatuurlijkGetal met een initiele waarde van 1.
+	 * POST: Heeft een nieuw object van het type Identifier aangemaakt met de waarde 'L''E''E''G'.
 	 * Identifier(); 
 	 **/
 	
