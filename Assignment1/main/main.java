@@ -171,5 +171,5 @@ public class main {
 				
 		} while (herhaal);
 	}
-	// hallo!
+	// Dit zou branch 2 moeten zijn!
 }
