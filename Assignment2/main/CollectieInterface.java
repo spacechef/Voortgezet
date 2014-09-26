@@ -101,5 +101,8 @@ public interface CollectieInterface {
 	 */
 	Collectie symVerschil(Collectie meegegevenCollectie);
 	
+	//verandering
+	
+	
 }
 
