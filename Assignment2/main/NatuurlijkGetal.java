@@ -1,8 +1,8 @@
 package main;
 
-/** Elementen: Alle positive getallen van 0 t/m 9 van het type int
+/** Elementen: Alle positive getallen van 0 t/m 9 van het type char
  * Structuur: Linear
- * Domein: Alle rijen van positieve getallen die niet met een 0 beginnen en met een minimale lengte van 1 getal.
+ * Domein: Alle rijen van positieve getallen (nul mag ook) die niet met een 0 beginnen en met een minimale lengte van 1 getal.
  **/
 
 public interface NatuurlijkGetalInterface extends Data{
@@ -13,35 +13,24 @@ public interface NatuurlijkGetalInterface extends Data{
 	 * NatuurlijkGetal(); 
 	 **/
 	
-	/** PRE: - De meegegeven karakter is een positief getal.
-	 * POST: Herstelt dit NatuurlijkGetal-object naar de meegegeven waarde: i.
+	/** PRE: - De meegegeven karakter is een positief getal (of nul).
+	 * POST: Herstelt dit NatuurlijkGetal-object naar de meegegeven waarde: c.
 	 **/	
-	void init(int i);
+	void init(char c);
 
 	/** PRE: Alle positieve getallen van 0 t/m 9.
-	 * POST: Heeft aan het einde van NatuurlijkGetal-object een int i toegevoegd 
+	 * POST: Heeft aan het einde van NatuurlijkGetal-object een char c toegevoegd (als er een 0 inzit is deze overschreven met c)
 	 **/	
-	void voegToe(int i);
-	
-	/** PRE: -
-	 *  POST: Een kopie van dit NatuurlijkGetal-object, met dezelfde waarden als dit object, wordt geretourneerd.
-	 **/
-	NatuurlijkGetal clone();
+	void voegToe(char c);
 	
 	/** PRE: -
 	 * POST: Retourneert de lengte van dit NatuurlijkGetal-object
 	 **/	
 	int lengte();
 
-	/** PRE: -
-	 * POST: TRUE: Waarden van de twee NatuurlijkGetal-objecten zijn gelijk
-	 *  	 FALSE: De meegegeven NatuurlijkGetal-object is niet gelijk is aan dit NatuurlijkGetal-object.
-	 **/	
-	boolean equals(NatuurlijkGetal ingevoerdeNatuurlijkGetal);
-
 	/** PRE: Heeft een getal
-	 * POST: Retourneert het getal dat staat opgeslagen in dit object.
+	 * POST: Retourneert het getal dat staat opgeslagen op index positie i in dit object.
 	 **/	
-	int get();
+	char get(int i);
 
 }

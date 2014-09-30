@@ -101,7 +101,6 @@ public interface CollectieInterface {
 	 */
 	Collectie symVerschil(Collectie meegegevenCollectie);
 	
-	//banaboiz hallo doei
 	
 	
 }
