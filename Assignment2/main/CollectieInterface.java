@@ -3,35 +3,22 @@
  */
 package main;
 
-import assignment2.Collectie;
-import assignment2.NatuurlijkGetal;
-
 /**
- * @author Tom
+ *@author Tom
  *
- */
-public interface CollectieInterface {
-
-	/**
-	 *@elements
-	 *		getallen van type NatuurlijkGetal en variabelen van type Identifier.
-	 *@structure
-	 *		none.
-	 *@domain
-	 *		alle combinaties van getallen en variabelen.
-	 *@constructor
-	 *		Collectie();
-	 *			PRE: - 
-	 *			POST: Er is een nieuw leeg Collectie object geretourneerd.
-	 *			
-	 **/
-	
-	/**
-	 * PRE: -
-	 * POST: Een kopie van dit Collectie object is geretourneerd als nieuw Collectie object.
-	 * @return
-	 */
-	Collectie clone();
+ *@elements
+ *		objecten van het type E.
+ *@structure
+ *		none.
+ *@domain
+ *		alle objecten van type E.
+ *@constructor
+ *		Collectie();
+ *			PRE: - 
+ *			POST: Er is een nieuw leeg Collectie object geretourneerd.
+ *			
+ **/
+interface CollectieInterface<E extends Data> extends Clonable {
 	
 	/**
 	 * PRE: -
@@ -40,16 +27,23 @@ public interface CollectieInterface {
 	void init();
 	
 	/**
-	 * PRE: - 
-	 * POST: Het meegegeven element is het laatste element van de collectie.
+	 * PRE: -
+	 * POST: true: het meegegeven element komt in dit collectie object voor
+	 * 		false: het meegegeven element komt niet in dit collectie object voor
 	 */
-	void voegToe(NatuurlijkGetal n);
+	boolean bevat(natuurlijkGetal n);
+	
+	/**
+	 * PRE: - 
+	 * POST: Collectie bevat een kopie van e
+	 */
+	boolean voegToe(E invoerElement);
 	
 	/**
 	 * PRE: - 
 	 * POST: Het meegegeven element komt niet in de collectie voor.
 	 */
-	void verwijder();
+	boolean verwijder(E e);
 	
 	/**
 	 * PRE: - 
@@ -61,19 +55,32 @@ public interface CollectieInterface {
 	/**
 	 * PRE: - 
 	 * POST: 
-	 * 		true: Dit collectie object heeft geen elementen.
+	 * 		true: Dit collectie object heeft 0 elementen.
 	 * 		false: Dit collectie object heeft meer dan 0 elementen.
 	 * @return
 	 */
 	boolean isLeeg();
 	
 	/**
+	 * PRE: - 
+	 * POST: true: Dit collectie object is gelijk aan het meegegeven collectie object.
+	 * 		false: Dit collectie object is niet gelijk aan het meegegeven collectie object.
+	 */
+	boolean equals(Collectie<E> meegegevenCollectie);
+	
+	/**
+	 * PRE: - 
+	 * POST: het element op positie i is geretourneerd.
+	 */
+	E pak(int i);
+	
+	/**
 	 * PRE: -
-	 * POST: Een nieuw Collectie object is geretourneerd met daarin een 
+	 * POST: Een nieuw Collectie object is geretourneerd met daarin een. 
 	 * kopie van alle unieke elementen in deze en de meegegeven collectie.
 	 * @return
 	 */
-	Collectie vereniging(Collectie meegegevenCollectie);
+	Collectie<E> vereniging(Collectie<E> meegegevenCollectie);
 	
 	/**
 	 * PRE: - 
@@ -82,7 +89,7 @@ public interface CollectieInterface {
 	 * niet in de meegegeven collectie. 
 	 * @return
 	 */
-	Collectie verschil(Collectie meegegevenCollectie);
+	Collectie<E> verschil(Collectie<E> meegegevenCollectie);
 	
 	/**
 	 * PRE:
@@ -91,7 +98,7 @@ public interface CollectieInterface {
 	 * collectie zitten.
 	 * @return
 	 */
-	Collectie intersectie(Collectie meegegevenCollectie);
+	Collectie<E> intersectie(Collectie<E> meegegevenCollectie);
 	
 	/**
 	 * PRE:
@@ -99,10 +106,7 @@ public interface CollectieInterface {
 	 * van de elementen die niet in de vereniging van beide collecties zitten.
 	 * @return
 	 */
-	Collectie symVerschil(Collectie meegegevenCollectie);
-	
-	//banaboiz naa
-	
+	Collectie<E> symVerschil(Collectie<E> meegegevenCollectie);
 	
 }
 
