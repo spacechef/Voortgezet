@@ -3,22 +3,35 @@
  */
 package main;
 
+import assignment2.Collectie;
+import assignment2.NatuurlijkGetal;
+
 /**
- *@author Tom
+ * @author Tom
  *
- *@elements
- *		objecten van het type E.
- *@structure
- *		none.
- *@domain
- *		alle objecten van type E.
- *@constructor
- *		Collectie();
- *			PRE: - 
- *			POST: Er is een nieuw leeg Collectie object geretourneerd.
- *			
- **/
-interface CollectieInterface<E extends Data> extends Clonable {
+ */
+public interface CollectieInterface {
+
+	/**
+	 *@elements
+	 *		getallen van type NatuurlijkGetal en variabelen van type Identifier.
+	 *@structure
+	 *		none.
+	 *@domain
+	 *		alle combinaties van getallen en variabelen.
+	 *@constructor
+	 *		Collectie();
+	 *			PRE: - 
+	 *			POST: Er is een nieuw leeg Collectie object geretourneerd.
+	 *			
+	 **/
+	
+	/**
+	 * PRE: -
+	 * POST: Een kopie van dit Collectie object is geretourneerd als nieuw Collectie object.
+	 * @return
+	 */
+	Collectie clone();
 	
 	/**
 	 * PRE: -
@@ -27,23 +40,16 @@ interface CollectieInterface<E extends Data> extends Clonable {
 	void init();
 	
 	/**
-	 * PRE: -
-	 * POST: true: het meegegeven element komt in dit collectie object voor
-	 * 		false: het meegegeven element komt niet in dit collectie object voor
-	 */
-	boolean bevat(natuurlijkGetal n);
-	
-	/**
 	 * PRE: - 
-	 * POST: Collectie bevat een kopie van e
+	 * POST: Het meegegeven element is het laatste element van de collectie.
 	 */
-	boolean voegToe(E invoerElement);
+	void voegToe(NatuurlijkGetal n);
 	
 	/**
 	 * PRE: - 
 	 * POST: Het meegegeven element komt niet in de collectie voor.
 	 */
-	boolean verwijder(E e);
+	void verwijder();
 	
 	/**
 	 * PRE: - 
@@ -55,32 +61,19 @@ interface CollectieInterface<E extends Data> extends Clonable {
 	/**
 	 * PRE: - 
 	 * POST: 
-	 * 		true: Dit collectie object heeft 0 elementen.
+	 * 		true: Dit collectie object heeft geen elementen.
 	 * 		false: Dit collectie object heeft meer dan 0 elementen.
 	 * @return
 	 */
 	boolean isLeeg();
 	
 	/**
-	 * PRE: - 
-	 * POST: true: Dit collectie object is gelijk aan het meegegeven collectie object.
-	 * 		false: Dit collectie object is niet gelijk aan het meegegeven collectie object.
-	 */
-	boolean equals(Collectie<E> meegegevenCollectie);
-	
-	/**
-	 * PRE: - 
-	 * POST: het element op positie i is geretourneerd.
-	 */
-	E pak(int i);
-	
-	/**
 	 * PRE: -
-	 * POST: Een nieuw Collectie object is geretourneerd met daarin een. 
+	 * POST: Een nieuw Collectie object is geretourneerd met daarin een 
 	 * kopie van alle unieke elementen in deze en de meegegeven collectie.
 	 * @return
 	 */
-	Collectie<E> vereniging(Collectie<E> meegegevenCollectie);
+	Collectie vereniging(Collectie meegegevenCollectie);
 	
 	/**
 	 * PRE: - 
@@ -89,7 +82,7 @@ interface CollectieInterface<E extends Data> extends Clonable {
 	 * niet in de meegegeven collectie. 
 	 * @return
 	 */
-	Collectie<E> verschil(Collectie<E> meegegevenCollectie);
+	Collectie verschil(Collectie meegegevenCollectie);
 	
 	/**
 	 * PRE:
@@ -98,7 +91,7 @@ interface CollectieInterface<E extends Data> extends Clonable {
 	 * collectie zitten.
 	 * @return
 	 */
-	Collectie<E> intersectie(Collectie<E> meegegevenCollectie);
+	Collectie intersectie(Collectie meegegevenCollectie);
 	
 	/**
 	 * PRE:
@@ -106,7 +99,9 @@ interface CollectieInterface<E extends Data> extends Clonable {
 	 * van de elementen die niet in de vereniging van beide collecties zitten.
 	 * @return
 	 */
-	Collectie<E> symVerschil(Collectie<E> meegegevenCollectie);
+	Collectie symVerschil(Collectie meegegevenCollectie);
+	
+	
 	
 }
 
